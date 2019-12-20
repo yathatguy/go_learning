@@ -1,5 +1,6 @@
 # IDE artifacts
 .idea/
+.idea/*
 .vscode/
 
 # Binaries for programs and plugins
