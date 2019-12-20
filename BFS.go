@@ -36,7 +36,7 @@ func addDequ(tree map[string][]string, friendName string, q *deque.Deque) {
 
 func makeTree() map[string][]string {
 	tree := make(map[string][]string)
-	tree["dima"] = []string{"alex", "andrey","banan", "misha", "kristina"}
+	tree["dima"] = []string{"alex", "andrey", "banan", "misha", "kristina"}
 	tree["kristina"] = []string{"yulia"}
 	tree["misha"] = []string{"ksusha"}
 	tree["banan"] = []string{"artem", "tanya"}
