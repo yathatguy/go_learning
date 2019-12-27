@@ -49,7 +49,7 @@ func makeGraph() Graph {
 			"d": 7,
 		},
 		"c": {
-			"d": 6,
+			"d":   6,
 			"fin": 3,
 		},
 		"d": {
@@ -64,8 +64,8 @@ func makeCosts() map[string]uint {
 	costs := map[string]uint{
 		"a":   5,
 		"b":   2,
-		"c": ^uint(0),
-		"d": ^uint(0),
+		"c":   ^uint(0),
+		"d":   ^uint(0),
 		"fin": ^uint(0),
 	}
 	return costs
