@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 )
 
 type ListNode struct {
@@ -12,11 +11,9 @@ type ListNode struct {
 
 func main() {
 	l1 := newNode(1)
-	addNewNode(l1, 2)
-	addNewNode(l1, 3)
+	addNewNode(&l1,2)
 	l2 := newNode(1)
-	addNewNode(l2, 3)
-	addNewNode(l2, 4)
+	addNewNode(&l2,4)
 
 	fmt.Println(mergeTwoLists(l1, l2))
 }
@@ -33,72 +30,79 @@ func newNode(item int) *ListNode {
 	}
 }
 
-func addNewNode(l *ListNode, item int) {
-	for l.Next != nil {
-		l = l.Next
+func addNewNode(l **ListNode, item int) {
+	lst := *l
+	if lst != nil {
+		for lst.Next != nil {
+			lst = lst.Next
+		}
+		lst.Next = newNode(item)
+	} else {
+		node := newNode(item)
+		*l = node
 	}
-	node := newNode(item)
-	l.Next = node
-}
-
-func IsEmpty(l *ListNode) bool {
-	return reflect.DeepEqual(&l, ListNode{})
 }
 
 func merge(l1 *ListNode, l2 *ListNode) *ListNode {
 	l1copy := l1
 	l2copy := l2
-	var mergedList ListNode
-
-	if l1copy.Val < l2copy.Val {
-		mergedList = ListNode{
-			Val:  l1copy.Val,
-			Next: nil,
-		}
-		l1copy = l1copy.Next
-	} else {
-		mergedList = ListNode{
-			Val:  l2copy.Val,
-			Next: nil,
-		}
-		l2copy = l2copy.Next
+	if l1copy == nil && l2copy == nil {
+		return nil
 	}
+	var mergedList *ListNode
 
-	for !(IsEmpty(l1copy) || IsEmpty(l2copy)) {
+	//if (l1copy != nil && l2copy != nil) {
+	//	if l1copy.Val < l2copy.Val {
+	//		mergedList = &ListNode{
+	//			Val:  l1copy.Val,
+	//			Next: nil,
+	//		}
+	//		l1copy = l1copy.Next
+	//	} else {
+	//		mergedList = &ListNode{
+	//			Val:  l2copy.Val,
+	//			Next: nil,
+	//		}
+	//		l2copy = l2copy.Next
+	//	}
+	//}
+
+	for (l1copy != nil && l2copy != nil) {
 		if l1copy.Val < l2copy.Val {
 			addNewNode(&mergedList, l1copy.Val)
 			if l1copy.Next != nil {
 				l1copy = l1copy.Next
 			} else {
-				l1copy = &ListNode{}
+				l1copy = nil
 			}
 		} else {
 			addNewNode(&mergedList, l2copy.Val)
 			if l2copy.Next != nil {
 				l2copy = l2copy.Next
 			} else {
-				l2copy = &ListNode{}
+				l2copy = nil
 			}
 		}
 	}
-	if IsEmpty(l1copy) {
-		for !IsEmpty(l2copy) {
-			addNewNode(&mergedList, l2copy.Val)
-			if l2copy.Next != nil {
-				l2copy = l2copy.Next
-			} else {
-				l2copy = &ListNode{}
-			}
-		}
-	} else {
-		for !IsEmpty(l1copy) {
+	if l1copy != nil {
+		for l1copy != nil {
 			addNewNode(&mergedList, l1copy.Val)
 			if l1copy.Next != nil {
 				l1copy = l1copy.Next
 			} else {
-				l1copy = &ListNode{}
+				l1copy = nil
 			}
 		}
 	}
-	return &mergedList
+	if l2copy != nil {
+		for l2copy != nil {
+			addNewNode(&mergedList, l2copy.Val)
+			if l2copy.Next != nil {
+				l2copy = l2copy.Next
+			} else {
+				l2copy = nil
+			}
+		}
+	}
+	return mergedList
 }
