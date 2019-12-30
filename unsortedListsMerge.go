@@ -5,15 +5,15 @@ import (
 )
 
 type ListNode struct {
-	Val int
+	Val  int
 	Next *ListNode
 }
 
 func main() {
 	l1 := newNode(1)
-	addNewNode(&l1,2)
+	addNewNode(&l1, 2)
 	l2 := newNode(1)
-	addNewNode(&l2,4)
+	addNewNode(&l2, 4)
 
 	fmt.Println(mergeTwoLists(l1, l2))
 }
@@ -51,23 +51,7 @@ func merge(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	var mergedList *ListNode
 
-	//if (l1copy != nil && l2copy != nil) {
-	//	if l1copy.Val < l2copy.Val {
-	//		mergedList = &ListNode{
-	//			Val:  l1copy.Val,
-	//			Next: nil,
-	//		}
-	//		l1copy = l1copy.Next
-	//	} else {
-	//		mergedList = &ListNode{
-	//			Val:  l2copy.Val,
-	//			Next: nil,
-	//		}
-	//		l2copy = l2copy.Next
-	//	}
-	//}
-
-	for (l1copy != nil && l2copy != nil) {
+	for l1copy != nil && l2copy != nil {
 		if l1copy.Val < l2copy.Val {
 			addNewNode(&mergedList, l1copy.Val)
 			if l1copy.Next != nil {
